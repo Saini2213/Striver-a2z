@@ -1,0 +1,53 @@
+class Solution {
+    // Function to return a list containing the DFS traversal of the graph.
+    public ArrayList<Integer> dfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
+        // Code here
+        boolean[] vis=new boolean[V+1];
+        vis[0]=true;
+        ArrayList<Integer> ans=new ArrayList<>();
+        solve(0,vis,adj,ans);
+        return ans;
+    }
+    public static void solve(Integer node,boolean[] vis,ArrayList<ArrayList<Integer>> adj,ArrayList<Integer> ans){
+        vis[node]=true;
+        ans.add(node);
+        for(Integer it:adj.get(node)){
+            if(vis[it] == false){
+                solve(it,vis,adj,ans);
+            }
+        }
+        
+    }
+    
+    
+}
+// well this is the depth first search of a Graph the upper code is done using recursion where the timecomplexity is 0(N)+sumessionof degrees or we can say 2*edges
+and space complexity of 0(N) for storing ans in a list 0(N) for visited array and 0(N) for recursion for worst case.
+class Solution {
+    public void solve( boolean []vs, ArrayList<ArrayList<Integer>> adj,Queue<Integer> q,ArrayList<Integer> list)
+    {
+         if(!q.isEmpty()){
+           int c=q.poll();
+           list.add(c);
+           for(int i=0;i<adj.get(c).size();i++){
+               int t=adj.get(c).get(i);
+               if(!vs[t]){
+                   vs[t]=true;
+                   q.add(t);
+                   solve(vs,adj,q,list);
+               }
+           }
+       }else return;
+    }
+    public ArrayList<Integer> dfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
+       ArrayList<Integer> list=new ArrayList<>();
+        Queue<Integer> q=new LinkedList<>();
+        boolean []vs=new boolean[V];
+       vs[0]=true;
+       q.add(0);
+     solve(vs,adj,q,list);
+     return list;   
+        
+    }
+}
+this code is also quite similar but here an extra data strucuture has been used queue for storing the node.
